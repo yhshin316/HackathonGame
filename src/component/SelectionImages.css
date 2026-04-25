@@ -1,0 +1,34 @@
+/* This is the parent container */
+.gallery-container {
+  display: flex;            /* This forces children to sit side-by-side */
+  flex-direction: row;      /* This is the default, but good to be explicit */
+  gap: 16px;               /* Adds space between the images */
+  justify-content: center;  /* Centers the images horizontally */
+  align-items: center;      /* Centers the images vertically */
+  flex-wrap: nowrap;        /* Prevents them from jumping to a new line */
+  width: 100%;
+  padding: 20px;
+}
+
+/* This is the wrapper for each image */
+.image-card {
+  flex: 1;                  /* Forces images to share the width equally */
+  max-width: 150px;         /* Prevents images from getting too huge */
+  aspect-ratio: 1 / 1;      /* Keeps them as perfect squares */
+  cursor: pointer;
+  border: 4px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.image-card.selected {
+  border-color: #646cff;
+  transform: scale(1.1);
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;      /* Ensures the whole logo is visible */
+}
