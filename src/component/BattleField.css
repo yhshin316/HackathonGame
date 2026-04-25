@@ -2,58 +2,98 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 20px;
-  background: #222;
+  padding: 40px 20px;
+  background: #1a1a1a;
   color: white;
-  min-height: 300px;
+  min-height: 400px;
 }
 
 .character-node {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 200px;
+  width: 260px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #444;
 }
 
+/* HP at the Top */
 .hp-container {
   width: 100%;
-  height: 20px;
-  background-color: #555;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  height: 22px;
+  background-color: #333;
+  border-radius: 11px;
   position: relative;
   overflow: hidden;
+  margin-bottom: 20px; /* Space between HP and Image */
   border: 2px solid #000;
 }
 
 .hp-fill {
   height: 100%;
-  transition: width 0.3s ease-in-out, background-color 0.3s;
+  transition: width 0.4s ease-out;
 }
 
 .hp-text {
   position: absolute;
-  width: 100%;
-  text-align: center;
-  top: 0;
-  left: 0;
-  font-size: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.85rem;
   font-weight: bold;
-  line-height: 20px;
   color: white;
   text-shadow: 1px 1px 2px black;
+  z-index: 2;
+}
+
+/* Image in Middle */
+.image-container {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px; /* Space between Image and Stats */
 }
 
 .character-img {
-  width: 150px;
-  height: 150px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
+}
+
+/* Stats at the Bottom */
+.stats-container {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 12px 8px;
   border-radius: 8px;
-  object-fit: cover;
+  text-align: center;
+  border-top: 1px solid #555;
+}
+
+.character-name {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  color: #ffcc00;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-evenly;
+  font-family: 'monospace';
+  font-size: 0.9rem;
+  color: #00ffcc;
 }
 
 .vs-divider {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  font-style: italic;
-  color: #ffcc00;
+  color: #ff4d4d;
+  text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
 }
