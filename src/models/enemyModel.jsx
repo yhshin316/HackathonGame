@@ -46,5 +46,5 @@ export const enemyMoves = {
 export const enemymobs = [
     { name: "Slime", img: slime, attack: 10, defense: 2, moves: [enemyMoves.standardAttack, enemyMoves.heal] },
     { name: "Goblin", img: goblin, attack: 18, defense: 5, moves: [enemyMoves.standardAttack, enemyMoves.haste, enemyMoves.heal] },
-    { name: "Dragon", img: dragon, attack: 40, defense: 15, moves: [enemyMoves.standardAttack, enemyMoves.heal] }
+    { name: "Dragon", img: dragon, attack: 50, defense: 15, moves: [enemyMoves.standardAttack, enemyMoves.heal] }
 ];
