@@ -74,15 +74,24 @@ function Game() {
             setIsGameWon(true);
         } else {
             setEnemyIndex(nextIdx);
-            setStats(prev => ({
-                player1: {
-                    ...prev.player1,
-                    hp: Math.min(prev.player1.maxHp, prev.player1.hp + (reward?.type === 'heal' ? reward.value : 0)),
-                    attack: prev.player1.attack + (reward?.type === 'atk' ? reward.value : 0),
-                    defense: prev.player1.defense + (reward?.type === 'def' ? reward.value : 0)
-                },
-                player2: { ...enemymobs[nextIdx], hp: 100, maxHp: 100 }
-            }));
+            setStats(prev => {
+                // Calculate bonuses based on reward type
+                const bonusAtk = reward?.type === 'atk' ? reward.value : (reward?.type === 'both' ? reward.atkValue : 0);
+                const bonusDef = reward?.type === 'def' ? reward.value : (reward?.type === 'both' ? reward.defValue : 0);
+                const bonusHeal = reward?.type === 'heal' ? reward.value : 0;
+
+                return {
+                    player1: {
+                        ...prev.player1,
+                        hp: Math.min(prev.player1.maxHp, prev.player1.hp + bonusHeal),
+                        attack: prev.player1.attack + bonusAtk,
+                        defense: prev.player1.defense + bonusDef
+                    },
+                    player2: { ...enemymobs[nextIdx], hp: 100, maxHp: 100 }
+                };
+            });
+
+            // Reset turn states
             setIsLogOpen(false);
             setIsSpinning(true);
             setCanStop(true);
@@ -97,9 +106,9 @@ function Game() {
     const restartGame = () => {
         setBackpackItems([]);
         setEnemyIndex(0);
-        setStats({ 
-            player1: { hp: 100, maxHp: 100, name: 'Hero', img: mainCharacter, attack: mainCharacters[0][0], defense: mainCharacters[0][1] }, 
-            player2: { ...enemymobs[0], hp: 100, maxHp: 100 } 
+        setStats({
+            player1: { hp: 100, maxHp: 100, name: 'Hero', img: mainCharacter, attack: mainCharacters[0][0], defense: mainCharacters[0][1] },
+            player2: { ...enemymobs[0], hp: 100, maxHp: 100 }
         });
         setIsGameWon(false);
         setIsLogOpen(false);
@@ -157,7 +166,7 @@ function Game() {
                 holdStartTime.current = Date.now();
                 holdTimer.current = setTimeout(() => {
                     isHoldActionActive.current = true;
-                    setBackpackOpen(prev => !prev); 
+                    setBackpackOpen(prev => !prev);
                 }, 1000);
             }
         };
@@ -211,33 +220,33 @@ function Game() {
 
         // 1. Player Action
         const res = calculateCombatResult(idx % 3, currentStats.player1, currentStats.player2);
-        
+
         let heroVal = (selection.type === 'atk') ? Math.floor(res.damage * nextTurnBuff) : 0;
         let heroHeal = (selection.type === 'heal') ? Math.floor((currentStats.player1.maxHp * 0.2) * selection.mult) : 0;
         let heroDef = (selection.type === 'def') ? Math.floor(currentStats.player1.defense * selection.mult) : 0;
-        
+
         if (selection.type === 'atk') setNextTurnBuff(1.0);
 
         // 2. Enemy Action
         const hpPercent = ((currentStats.player2.hp - heroVal) / currentStats.player2.maxHp) * 100;
-        const aiDecision = resolveEnemyAction({ 
-            enemy: currentStats.player2, 
-            isCharging, 
-            turnsSinceLastUltimate: ultimateCooldown, 
-            hpPercent 
+        const aiDecision = resolveEnemyAction({
+            enemy: currentStats.player2,
+            isCharging,
+            turnsSinceLastUltimate: ultimateCooldown,
+            hpPercent
         });
 
         if (aiDecision.type === 'ULTIMATE') { setIsCharging(false); setUltimateCooldown(0); }
         else if (aiDecision.type === 'CHARGE') { setIsCharging(true); }
         else if (currentStats.player2.name === "Dragon" && !isCharging) { setUltimateCooldown(prev => prev + 1); }
 
-        const moveRes = aiDecision.move({ 
-            enemy: currentStats.player2, 
-            hero: currentStats.player1, 
-            setIsCharging, 
-            setSpinSpeed, 
-            setDebuffTurns: () => { }, 
-            setCombatLog: () => { } 
+        const moveRes = aiDecision.move({
+            enemy: currentStats.player2,
+            hero: currentStats.player1,
+            setIsCharging,
+            setSpinSpeed,
+            setDebuffTurns: () => { },
+            setCombatLog: () => { }
         });
 
         // 3. Final HP Math
@@ -248,25 +257,25 @@ function Game() {
         const finalEnemyHp = Math.min(currentStats.player2.maxHp, applyDamage(currentStats.player2.hp, heroVal) + enemyHealAmount);
         const finalHeroHp = Math.min(currentStats.player1.maxHp, applyDamage(currentStats.player1.hp, netHeroDmg) + heroHeal);
 
-        setCombatData({ 
-            type: selection.type, 
-            value: heroVal || heroHeal || heroDef, 
+        setCombatData({
+            type: selection.type,
+            value: heroVal || heroHeal || heroDef,
             heroAction: (selection.type === 'atk') ? res.message : `Action: ${selection.type.toUpperCase()}`,
-            enemyAction: aiDecision.name || moveRes?.name, 
-            enemyDamage: enemyRaw, 
-            netDamage: netHeroDmg, 
-            wasDodged: isDodging 
+            enemyAction: aiDecision.name || moveRes?.name,
+            enemyDamage: enemyRaw,
+            netDamage: netHeroDmg,
+            wasDodged: isDodging
         });
 
-        setStats({ 
-            player2: { ...currentStats.player2, hp: finalEnemyHp }, 
-            player1: { ...currentStats.player1, hp: finalHeroHp } 
+        setStats({
+            player2: { ...currentStats.player2, hp: finalEnemyHp },
+            player1: { ...currentStats.player1, hp: finalHeroHp }
         });
 
         setIsDodging(false);
 
         if (finalHeroHp <= 0 || finalEnemyHp <= 0) {
-            setIsLogOpen(false); 
+            setIsLogOpen(false);
             setIsSpinning(false);
             if (finalEnemyHp <= 0 && enemyIndex + 1 >= enemymobs.length) setIsGameWon(true);
         } else {
@@ -300,18 +309,18 @@ function Game() {
 
             {!isGameWon && stats.player1.hp > 0 && stats.player2.hp > 0 && (
                 <>
-                    <SelectionImages 
-                        images={spinnerData} 
-                        isPlaying={isSpinning} 
-                        speed={spinSpeed} 
-                        onIndexChange={i => currentSelectionIndex.current = i} 
+                    <SelectionImages
+                        images={spinnerData}
+                        isPlaying={isSpinning}
+                        speed={spinSpeed}
+                        onIndexChange={i => currentSelectionIndex.current = i}
                     />
                     {backpackOpen && (
-                        <Backpack 
-                            visible={backpackOpen} 
-                            items={backpackItems} 
-                            onIndexChange={(idx) => setBackpackIndex(idx)} 
-                            speed={250} 
+                        <Backpack
+                            visible={backpackOpen}
+                            items={backpackItems}
+                            onIndexChange={(idx) => setBackpackIndex(idx)}
+                            speed={250}
                         />
                     )}
                 </>
