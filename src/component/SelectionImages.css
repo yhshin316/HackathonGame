@@ -1,66 +1,50 @@
-.gallery-container {
+.selection-container {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
+    justify-content: center;
+    margin: 20px 0;
 }
 
-.spinner-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 15px;
-    border: 2px solid #555;
-}
-
-.image-grid {
-    display: flex;            /* Switches from a grid to a flexible row */
-    flex-direction: row;      /* Ensures they stay side-by-side */
-    flex-wrap: nowrap;        /* Prevents them from dropping to a new line */
-    justify-content: center;  /* Centers the icons horizontally */
-    gap: 10px;                /* Adds spacing between icons */
-    margin-top: 15px;
-    width: 100%;              /* Uses full width available */
+.image-display {
+    display: flex; /* Forces icons to stay horizontal */
+    flex-direction: row; 
+    gap: 10px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 }
 
 .image-card {
-    flex: 1;                  /* Allows cards to grow/shrink equally */
-    min-width: 60px;          /* Prevents them from getting too tiny */
-    max-width: 120px;         /* Prevents them from getting too huge */
-    padding: 10px;
+    width: 80px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     border: 2px solid #444;
-    background: #333;
-    transition: transform 0.1s;
+    background: #222;
+    transition: all 0.1s ease-in-out;
+    position: relative;
 }
 
-.image-card.selected {
-    border-color: #00ffcc;
+/* This creates the "Flashing" effect */
+.image-card.active {
+    border-color: #ffd700;
+    box-shadow: 0 0 15px #ffd700;
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
-    background: #222;
+    background: #444;
+    z-index: 2;
 }
 
 .image-card img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 5px;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
 }
 
-.card-multiplier {
-    font-size: 0.9rem;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
-    text-shadow: 1px 1px 2px #000;
-    margin-top: auto;
-    padding-bottom: 8px;
-}
-
-.status-message {
-    margin-bottom: 12px;
-    font-size: 0.9rem;
+.mult-badge {
     color: #ffd700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 5px;
 }

@@ -1,0 +1,36 @@
+.combat-log-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.combat-log-box {
+    background: #1a1a1a;
+    border: 3px solid #ffd700;
+    padding: 25px;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    text-align: left;
+}
+
+.log-row { margin-bottom: 12px; font-family: 'Courier New', Courier, monospace; }
+.log-label { color: #ffd700; font-weight: bold; margin-right: 10px; }
+.log-text { color: #fff; }
+.log-text-highlight { color: #00ffcc; font-weight: bold; font-size: 1.1rem; }
+.log-divider { border: 0; border-top: 1px solid #444; margin: 15px 0; }
+
+.log-close-btn {
+    width: 100%;
+    padding: 10px;
+    background: #ffd700;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.log-close-btn:hover { background: #fff; }

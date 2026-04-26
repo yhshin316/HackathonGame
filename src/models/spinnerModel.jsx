@@ -1,6 +1,6 @@
-import atkIcon from '../assets/vite.svg';
-import defendIcon from '../assets/react.svg';
-import healIcon from '../assets/hero.png';
+import atkIcon from '../assets/attackAbility.jpeg';
+import defendIcon from '../assets/shieldAbility.jpeg';
+import healIcon from '../assets/healAbility.png';
 
 export const spinnerData = [
     { img: atkIcon, mult: 0.5, type: 'atk' },
