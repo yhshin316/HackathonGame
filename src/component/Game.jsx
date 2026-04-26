@@ -290,16 +290,20 @@ function Game() {
 
             {stats.player1.hp <= 0 && (
                 <div className="victory-overlay">
-                    <h1>GAME OVER</h1>
-                    <button onClick={restartGame}>RESTART</button>
+                    <h1>
+                        GAME OVER <br />
+                        <span style={{ fontSize: '1rem' }}>Press spacebar to restart</span>
+                    </h1>
                 </div>
             )}
 
             {isGameWon && (
                 <div className="victory-overlay">
-                    <h1>CONGRATULATIONS!</h1>
-                    <p>You have defeated the {stats.player2.name} and cleared the game!</p>
-                    <button onClick={restartGame}>PLAY AGAIN</button>
+                    <h1>
+                        CONGRATULATIONS! <br />
+                        <span style={{ fontSize: '1rem' }}>You have cleared the game</span>
+                        <span style={{ fontSize: '1rem' }}>Press spacebar to restart</span>
+                    </h1>
                 </div>
             )}
 
