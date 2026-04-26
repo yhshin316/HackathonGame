@@ -1,0 +1,98 @@
+/* VictoryScreen.css */
+.victory-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: white;
+    font-family: 'Press Start 2P', cursive, sans-serif; /* Optional game font */
+}
+
+.victory-box {
+    background: #222;
+    padding: 40px;
+    border: 4px solid #ffd700; /* Gold border */
+    border-radius: 10px;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 0 20px #ffd700;
+}
+
+.reward-spinner {
+    margin: 20px 0;
+    padding: 20px;
+    background: #111;
+    border-radius: 8px;
+}
+
+.image-grid {
+    display: flex;            /* Switches from a grid to a flexible row */
+    flex-direction: row;      /* Ensures they stay side-by-side */
+    flex-wrap: nowrap;        /* Prevents them from dropping to a new line */
+    justify-content: center;  /* Centers the icons horizontally */
+    gap: 10px;                /* Adds spacing between icons */
+    margin-top: 15px;
+    width: 100%;              /* Uses full width available */
+}
+
+.image-card {
+    flex: 1;                  /* Allows cards to grow/shrink equally */
+    min-width: 60px;          /* Prevents them from getting too tiny */
+    max-width: 120px;         /* Prevents them from getting too huge */
+    padding: 10px;
+    border: 2px solid #444;
+    background: #333;
+    transition: transform 0.1s;
+}
+
+.image-card.selected {
+    border-color: #00ff00;
+    background: #004400;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.image-card img {
+    width: 50px;
+    height: 50px;
+}
+
+.reward-text {
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.reward-announcement {
+    font-size: 1.2rem;
+    color: #ffd700;
+    margin: 20px 0;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+.action-btn {
+    background: #ffd700;
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.action-btn:hover {
+    background: #fff;
+}
