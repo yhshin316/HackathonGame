@@ -1,0 +1,31 @@
+.combat-log-overlay {
+    position: fixed;
+    bottom: 30px; /* Lower-third placement */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.combat-log-box {
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 20px 40px;
+    border: 2px solid #f1c40f;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 400px;
+}
+
+.log-footer {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #f1c40f;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker { 50% { opacity: 0; } }

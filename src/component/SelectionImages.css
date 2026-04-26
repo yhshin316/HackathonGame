@@ -1,34 +1,66 @@
-/* This is the parent container */
 .gallery-container {
-  display: flex;            /* This forces children to sit side-by-side */
-  flex-direction: row;      /* This is the default, but good to be explicit */
-  gap: 16px;               /* Adds space between the images */
-  justify-content: center;  /* Centers the images horizontally */
-  align-items: center;      /* Centers the images vertically */
-  flex-wrap: nowrap;        /* Prevents them from jumping to a new line */
-  width: 100%;
-  padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
 }
 
-/* This is the wrapper for each image */
+.spinner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    border: 2px solid #555;
+}
+
+.image-grid {
+    display: flex;            /* Switches from a grid to a flexible row */
+    flex-direction: row;      /* Ensures they stay side-by-side */
+    flex-wrap: nowrap;        /* Prevents them from dropping to a new line */
+    justify-content: center;  /* Centers the icons horizontally */
+    gap: 10px;                /* Adds spacing between icons */
+    margin-top: 15px;
+    width: 100%;              /* Uses full width available */
+}
+
 .image-card {
-  flex: 1;                  /* Forces images to share the width equally */
-  max-width: 150px;         /* Prevents images from getting too huge */
-  aspect-ratio: 1 / 1;      /* Keeps them as perfect squares */
-  cursor: pointer;
-  border: 4px solid transparent;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.3s ease;
+    flex: 1;                  /* Allows cards to grow/shrink equally */
+    min-width: 60px;          /* Prevents them from getting too tiny */
+    max-width: 120px;         /* Prevents them from getting too huge */
+    padding: 10px;
+    border: 2px solid #444;
+    background: #333;
+    transition: transform 0.1s;
 }
 
 .image-card.selected {
-  border-color: #646cff;
-  transform: scale(1.1);
+    border-color: #00ffcc;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+    background: #222;
 }
 
 .image-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;      /* Ensures the whole logo is visible */
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.card-multiplier {
+    font-size: 0.9rem;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    text-shadow: 1px 1px 2px #000;
+    margin-top: auto;
+    padding-bottom: 8px;
+}
+
+.status-message {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: #ffd700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
